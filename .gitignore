@@ -5,3 +5,4 @@ trouble_files/
 Data_files/
 results.txt
 *.sh
+*.out
