@@ -1,0 +1,7 @@
+tester.c
+tester.out
+testing_files/
+trouble_files/
+Data_files/
+results.txt
+*.sh
