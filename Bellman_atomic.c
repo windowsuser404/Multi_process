@@ -109,15 +109,17 @@ void Bellman_ford(Graph* graph, int source,Node** nodearray){
 		nodearray[i]->change = false;
 		if((nodearray[i]->distance)!=INT_MAX){
 	//		printf("Entering %d node cos distance aint infy",i);
-		for(j=0;j<graph->adjLists[i]->size;j++){
+		LinkedList* adjList = graph->adjLists[i];		
+		for(j=0;j<adjList->size;j++){
+			Node* node = adjList->array[j]; 
 	//		printf("executed by:%d\n",omp_get_thread_num());
-			if(graph->adjLists[i]->array[j]->distance==INT_MAX || (((graph->adjLists[i]->array[j]->distance)-1)>(nodearray[i]->distance))){
+			if(node->distance==INT_MAX || (((node->distance)-1)>(nodearray[i]->distance))){
 //	printf("\nChanging %d distance from %d to %d",(graph->adjLists[i]->array[j]->data),(graph->adjLists[i]->array[j]->distance),(nodearray[i]->distance+1));
 				#pragma omp atomic write
-				graph->adjLists[i]->array[j]->distance=nodearray[i]->distance+1;
+				node->distance=nodearray[i]->distance+1;
 	//			printf("Me be working here %d",omp_get_thread_num());
 				changed = true;
-				graph->adjLists[i]->array[j]->change = true;
+				adjList->array[j]->change = true;
 			}
 
 			}
